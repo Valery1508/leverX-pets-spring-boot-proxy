@@ -42,7 +42,7 @@ public class PersonController {
     }
 
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<String> deletePersonById(@PathVariable Long id) {
+    public ResponseEntity<String> deletePersonById(@PathVariable Long id) throws IOException {
         personService.deletePersonById(id);
         return ResponseEntity.ok("Person with id=" + id + " was successfully deleted");
     }

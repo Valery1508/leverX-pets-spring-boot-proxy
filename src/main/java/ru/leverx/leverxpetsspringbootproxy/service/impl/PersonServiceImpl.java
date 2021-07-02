@@ -40,13 +40,14 @@ public class PersonServiceImpl implements PersonService {
     }
 
     @Override
-    public void deletePersonById(long id) {
+    public void deletePersonById(long id) throws IOException {
         /*if (checkPersonExistence(id)) {
             personRepository.deleteById(id);
             log.debug("Person with id={} was successfully deleted!", id);
         } else {
             throw new EntityNotFoundException(Person.class.getName(), id);
         }*/
+        httpDestinationClientPeople.HttpDeletePersonById(id);
     }
 
     @Override

@@ -13,7 +13,7 @@ public interface PersonService {
 
     List<PersonResponseDto> getPeople() throws IOException;
 
-    void deletePersonById(long id);
+    void deletePersonById(long id) throws IOException;
 
     PersonResponseDto createPerson(PersonRequestDto personRequestDto);
 

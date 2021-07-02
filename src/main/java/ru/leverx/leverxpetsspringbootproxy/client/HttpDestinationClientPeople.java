@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.util.EntityUtils;
@@ -38,7 +39,16 @@ public class HttpDestinationClientPeople {
         HttpEntity entity = execute.getEntity();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<PersonResponseDto> personResponseDtos = objectMapper.readValue(EntityUtils.toString(entity), new TypeReference<List<PersonResponseDto>>() {});
+        List<PersonResponseDto> personResponseDtos = objectMapper.readValue(
+                EntityUtils.toString(entity),
+                new TypeReference<List<PersonResponseDto>>() {
+        });
         return personResponseDtos;
+    }
+
+    public void HttpDeletePersonById(Long id) throws IOException {
+        HttpUriRequest uriRequest = new HttpDelete(String.format("%s/people/%s", GENERAL_URL, id));
+
+        HTTP_CLIENT.execute(uriRequest);
     }
 }
