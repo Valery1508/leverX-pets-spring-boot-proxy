@@ -9,7 +9,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.util.EntityUtils;
 import org.springframework.stereotype.Repository;
-import ru.leverx.leverxpetsspringbootproxy.dto.PersonResponseDto;
+import ru.leverx.leverxpetsspringbootproxy.dto.PetDto;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,36 +18,36 @@ import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationCo
 import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationConstants.HTTP_CLIENT;
 
 @Repository
-public class HttpDestinationClientPeople {  //todo interface
+public class HttpDestinationClientPets {
 
-    public PersonResponseDto httpGetPersonById(Long id) throws IOException {
+    public PetDto httpGetPetById(Long id) throws IOException {
 
-        HttpUriRequest uriRequest = new HttpGet(String.format("%s/people/%s", GENERAL_URL, id));
+        HttpUriRequest uriRequest = new HttpGet(String.format("%s/pets/%s", GENERAL_URL, id));
 
         HttpResponse execute = HTTP_CLIENT.execute(uriRequest);
         HttpEntity entity = execute.getEntity();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        PersonResponseDto personResponseDto = objectMapper.readValue(EntityUtils.toString(entity), PersonResponseDto.class);
-        return personResponseDto;
+        PetDto petDto = objectMapper.readValue(EntityUtils.toString(entity), PetDto.class);
+        return petDto;
     }
 
-    public List<PersonResponseDto> httpGetPeople() throws IOException {
-        HttpUriRequest uriRequest = new HttpGet(String.format("%s/people", GENERAL_URL));
+    public List<PetDto> httpGetPets() throws IOException {
+        HttpUriRequest uriRequest = new HttpGet(String.format("%s/pets", GENERAL_URL));
 
         HttpResponse execute = HTTP_CLIENT.execute(uriRequest);
         HttpEntity entity = execute.getEntity();
 
         ObjectMapper objectMapper = new ObjectMapper();
-        List<PersonResponseDto> personResponseDtos = objectMapper.readValue(
+        List<PetDto> petDtos = objectMapper.readValue(
                 EntityUtils.toString(entity),
-                new TypeReference<List<PersonResponseDto>>() {
-        });
-        return personResponseDtos;
+                new TypeReference<List<PetDto>>() {
+                });
+        return petDtos;
     }
 
-    public void httpDeletePersonById(Long id) throws IOException {
-        HttpUriRequest uriRequest = new HttpDelete(String.format("%s/people/%s", GENERAL_URL, id));
+    public void httpDeletePetById(Long id) throws IOException {
+        HttpUriRequest uriRequest = new HttpDelete(String.format("%s/pets/%s", GENERAL_URL, id));
 
         HTTP_CLIENT.execute(uriRequest);
     }

@@ -21,12 +21,12 @@ public class PersonServiceImpl implements PersonService {
     @Override
     public PersonResponseDto getPersonById(long id) throws IOException {
         log.debug("(PROXY) getPersonById method started.");
-        return httpDestinationClientPeople.HttpGetPersonById(id);
+        return httpDestinationClientPeople.httpGetPersonById(id);
     }
 
     @Override
     public List<PersonResponseDto> getPeople() throws IOException {
-        return httpDestinationClientPeople.HttpGetPeople();
+        return httpDestinationClientPeople.httpGetPeople();
     }
 
     @Override
@@ -41,13 +41,7 @@ public class PersonServiceImpl implements PersonService {
 
     @Override
     public void deletePersonById(long id) throws IOException {
-        /*if (checkPersonExistence(id)) {
-            personRepository.deleteById(id);
-            log.debug("Person with id={} was successfully deleted!", id);
-        } else {
-            throw new EntityNotFoundException(Person.class.getName(), id);
-        }*/
-        httpDestinationClientPeople.HttpDeletePersonById(id);
+        httpDestinationClientPeople.httpDeletePersonById(id);
     }
 
     @Override
