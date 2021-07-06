@@ -3,6 +3,7 @@ package ru.leverx.leverxpetsspringbootproxy.service.impl;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.leverx.leverxpetsspringbootproxy.client.HttpDestinationClientPets;
+import ru.leverx.leverxpetsspringbootproxy.client.impl.HttpDestinationClientPetsImpl;
 import ru.leverx.leverxpetsspringbootproxy.dto.PetDto;
 import ru.leverx.leverxpetsspringbootproxy.dto.SwapPetsDto;
 import ru.leverx.leverxpetsspringbootproxy.service.PetService;
