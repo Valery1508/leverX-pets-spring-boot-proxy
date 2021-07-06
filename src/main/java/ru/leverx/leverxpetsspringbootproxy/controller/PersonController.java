@@ -37,7 +37,7 @@ public class PersonController {
     }
 
     @PostMapping
-    public ResponseEntity<PersonResponseDto> createPerson(@Valid @RequestBody PersonRequestDto personRequestDto) {
+    public ResponseEntity<PersonResponseDto> createPerson(@Valid @RequestBody PersonRequestDto personRequestDto) throws IOException {
         return ResponseEntity.ok(personService.createPerson(personRequestDto));
     }
 
@@ -49,7 +49,7 @@ public class PersonController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<PersonResponseDto> updatePersonById(@PathVariable Long id,
-                                                              @Valid @RequestBody PersonRequestDto personRequestDto) {
+                                                              @Valid @RequestBody PersonRequestDto personRequestDto) throws IOException {
         return ResponseEntity.ok(personService.updatePerson(id, personRequestDto));
     }
 }

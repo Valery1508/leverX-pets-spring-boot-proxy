@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.leverx.leverxpetsspringbootproxy.dto.PetDto;
+import ru.leverx.leverxpetsspringbootproxy.dto.SwapPetsDto;
 import ru.leverx.leverxpetsspringbootproxy.service.PetService;
 
 import javax.validation.Valid;
@@ -23,7 +24,6 @@ import java.util.List;
 public class PetController {
 
     private final PetService petService;
-    //private final SwapPetsService swapPetsService;
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<PetDto> getPetById(@PathVariable Long id) throws IOException {
@@ -36,7 +36,7 @@ public class PetController {
     }
 
     @PostMapping
-    public ResponseEntity<PetDto> createPerson(@Valid @RequestBody PetDto petDto) {
+    public ResponseEntity<PetDto> createPerson(@Valid @RequestBody PetDto petDto) throws IOException {
         return ResponseEntity.ok(petService.createPet(petDto));
     }
 
@@ -48,13 +48,13 @@ public class PetController {
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<PetDto> updatePetById(@PathVariable Long id,
-                                                @Valid @RequestBody PetDto petDto) {
+                                                @Valid @RequestBody PetDto petDto) throws IOException {
         return ResponseEntity.ok(petService.updatePet(id, petDto));
     }
 
-    /*@PostMapping(value = "/swap")
-    public ResponseEntity<String> swapPets(@Valid @RequestBody SwapPetsDto swapPetsDto) {
-        swapPetsService.swapPets(swapPetsDto);
+    @PostMapping(value = "/swap")
+    public ResponseEntity<String> swapPets(@Valid @RequestBody SwapPetsDto swapPetsDto) throws IOException {
+        petService.swapPets(swapPetsDto);
         return ResponseEntity.ok("Pets were successfully swapped :)");
-    }*/
+    }
 }

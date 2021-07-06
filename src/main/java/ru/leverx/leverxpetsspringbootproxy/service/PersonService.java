@@ -15,7 +15,7 @@ public interface PersonService {
 
     void deletePersonById(long id) throws IOException;
 
-    PersonResponseDto createPerson(PersonRequestDto personRequestDto);
+    PersonResponseDto createPerson(PersonRequestDto personRequestDto) throws IOException;
 
-    PersonResponseDto updatePerson(long id, PersonRequestDto personRequestDto);
+    PersonResponseDto updatePerson(long id, PersonRequestDto personRequestDto) throws IOException;
 }

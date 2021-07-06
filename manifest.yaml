@@ -8,3 +8,5 @@ applications:
     services:
       - proxy-server-destination
       - my-logger
+    env:
+      JBP_CONFIG_DEBUG: '{enabled: true}'

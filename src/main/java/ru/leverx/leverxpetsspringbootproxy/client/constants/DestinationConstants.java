@@ -1,5 +1,6 @@
 package ru.leverx.leverxpetsspringbootproxy.client.constants;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sap.cloud.sdk.cloudplatform.connectivity.HttpDestination;
 import org.apache.http.client.HttpClient;
 
@@ -15,5 +16,7 @@ public final class DestinationConstants {
     public static final HttpClient HTTP_CLIENT = getHttpClient(DESTINATION);
 
     public static final String GENERAL_URL = DESTINATION.getUri() + "";
+
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
 }
