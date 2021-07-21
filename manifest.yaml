@@ -6,7 +6,8 @@ applications:
     path: target/leverx-pets-spring-boot-proxy-0.0.1-SNAPSHOT.jar
     buildpack: https://github.com/cloudfoundry/java-buildpack.git#v4.17.1
     services:
-      - proxy-server-destination
+      - pets-xsuaa
       - my-logger
     env:
       JBP_CONFIG_DEBUG: '{enabled: true}'
+      destinations: '[{ "name":"destination-service-subacc", "url":"https://pets-service.cfapps.eu10.hana.ondemand.com/,"forwardAuthToken":true"}]'

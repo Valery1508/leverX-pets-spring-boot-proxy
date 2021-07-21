@@ -16,9 +16,11 @@
     <properties>
         <java.version>1.8</java.version>
         <apache.commons>3.12.0</apache.commons>
+        <sap.cloud.security.version>2.10.1</sap.cloud.security.version>
+        <apache.httpclient.version>4.5.13</apache.httpclient.version>
     </properties>
 
-    <dependencyManagement>
+    <!--<dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>com.sap.cloud.sdk</groupId>
@@ -28,15 +30,11 @@
                 <scope>import</scope>
             </dependency>
         </dependencies>
-    </dependencyManagement>
+    </dependencyManagement>-->
 
     <dependencies>
 
         <!--Spring Boot-->
-        <!--<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-validation</artifactId>
@@ -45,22 +43,22 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
             <scope>runtime</scope>
             <optional>true</optional>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-tomcat</artifactId>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -92,7 +90,47 @@
         <dependency>
             <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
             <artifactId>scp-cf</artifactId>
+            <version>3.39.0</version>
+            <!--<exclusions>
+                <exclusion>
+                    <groupId>com.sap.cloud.security</groupId>
+                    <artifactId>java-api</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.sap.cloud.security.xsuaa</groupId>
+                    <artifactId>token-client</artifactId>
+                </exclusion>
+            </exclusions>-->
         </dependency>
+        <!--<dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>token-client</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>-->
+
+        <!--<dependency>
+            <groupId>com.sap.cloud.security</groupId>
+            <artifactId>java-api</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>-->
+        <!-- security -->
+        <!--<dependency>
+            <groupId>com.sap.cloud.security.xsuaa</groupId>
+            <artifactId>xsuaa-spring-boot-starter</artifactId>
+            <version>${sap.cloud.security.version}</version>
+        </dependency>-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>${apache.httpclient.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.nimbusds</groupId>
+            <artifactId>nimbus-jose-jwt</artifactId>
+            <version>8.20</version>
+        </dependency>
+
     </dependencies>
 
     <build>

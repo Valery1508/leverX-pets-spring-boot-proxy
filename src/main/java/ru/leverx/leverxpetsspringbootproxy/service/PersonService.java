@@ -9,9 +9,9 @@ import java.util.List;
 
 public interface PersonService {
 
-    PersonResponseDto getPersonById(long id) throws IOException;
+    PersonResponseDto getPersonById(long id, String token) throws IOException;
 
-    List<PersonResponseDto> getPeople() throws IOException;
+    List<PersonResponseDto> getPeople(String token) throws IOException;
 
     void deletePersonById(long id) throws IOException;
 

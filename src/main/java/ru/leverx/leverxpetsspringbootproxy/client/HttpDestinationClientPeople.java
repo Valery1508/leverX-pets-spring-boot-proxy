@@ -11,9 +11,9 @@ import java.util.List;
  */
 public interface HttpDestinationClientPeople {
 
-    PersonResponseDto httpGetPersonById(Long id) throws IOException;
+    PersonResponseDto httpGetPersonById(Long id, String token) throws IOException;
 
-    List<PersonResponseDto> httpGetPeople() throws IOException;
+    List<PersonResponseDto> httpGetPeople(String token) throws IOException;
 
     void httpDeletePersonById(Long id) throws IOException;
 

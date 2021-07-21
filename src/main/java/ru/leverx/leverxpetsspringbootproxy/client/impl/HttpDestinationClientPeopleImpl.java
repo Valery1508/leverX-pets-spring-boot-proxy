@@ -1,6 +1,11 @@
 package ru.leverx.leverxpetsspringbootproxy.client.impl;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.sap.cloud.sdk.cloudplatform.security.principal.PrincipalAccessor;
+import com.sap.cloud.sdk.cloudplatform.security.principal.PrincipalFacade;
+import com.sap.cloud.sdk.cloudplatform.security.principal.ScpCfPrincipalFacade;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.HttpResponse;
@@ -16,6 +21,7 @@ import org.springframework.stereotype.Repository;
 import ru.leverx.leverxpetsspringbootproxy.client.HttpDestinationClientPeople;
 import ru.leverx.leverxpetsspringbootproxy.dto.PersonRequestDto;
 import ru.leverx.leverxpetsspringbootproxy.dto.PersonResponseDto;
+import ru.leverx.leverxpetsspringbootproxy.service.AuthorizationHeaderService;
 
 import java.io.IOException;
 import java.util.List;
@@ -25,12 +31,20 @@ import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationCo
 import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationConstants.OBJECT_MAPPER;
 
 @Repository
+@RequiredArgsConstructor
+@Slf4j
 public class HttpDestinationClientPeopleImpl implements HttpDestinationClientPeople {
 
+    private final AuthorizationHeaderService authorizationHeaderService;
+
     @Override
-    public PersonResponseDto httpGetPersonById(Long id) throws IOException {
+    public PersonResponseDto httpGetPersonById(Long id, String token) throws IOException {
 
         HttpUriRequest uriRequest = new HttpGet(String.format("%s/people/%s", GENERAL_URL, id));
+
+        authorizationHeaderService.addAuthorizationHeader(uriRequest, token);
+        //uriRequest.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
+        //uriRequest.addHeader(token, "Authorization");
 
         HttpResponse executedUrl = HTTP_CLIENT.execute(uriRequest);
         HttpEntity entity = executedUrl.getEntity();
@@ -40,9 +54,17 @@ public class HttpDestinationClientPeopleImpl implements HttpDestinationClientPeo
     }
 
     @Override
-    public List<PersonResponseDto> httpGetPeople() throws IOException {
+    public List<PersonResponseDto> httpGetPeople(String token) throws IOException {
         HttpUriRequest uriRequest = new HttpGet(String.format("%s/people", GENERAL_URL));
 
+        PrincipalFacade principalFacade = PrincipalAccessor.getPrincipalFacade();
+
+        ((ScpCfPrincipalFacade) principalFacade).setIdExtractorFunction(
+                "urn:ietf:params:oauth:grant-type:jwt-bearer",
+                jwt -> jwt.getClaim("user_name").asString());
+        log.info("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK -  " + principalFacade.toString());
+
+        authorizationHeaderService.addAuthorizationHeader(uriRequest, token);
         HttpResponse executedUrl = HTTP_CLIENT.execute(uriRequest);
         HttpEntity entity = executedUrl.getEntity();
 

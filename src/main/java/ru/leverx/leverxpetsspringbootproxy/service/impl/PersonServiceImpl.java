@@ -18,13 +18,13 @@ public class PersonServiceImpl implements PersonService {
     private final HttpDestinationClientPeople httpDestinationClientPeople;
 
     @Override
-    public PersonResponseDto getPersonById(long id) throws IOException {
-        return httpDestinationClientPeople.httpGetPersonById(id);
+    public PersonResponseDto getPersonById(long id, String token) throws IOException {
+        return httpDestinationClientPeople.httpGetPersonById(id, token);
     }
 
     @Override
-    public List<PersonResponseDto> getPeople() throws IOException {
-        return httpDestinationClientPeople.httpGetPeople();
+    public List<PersonResponseDto> getPeople(String token) throws IOException {
+        return httpDestinationClientPeople.httpGetPeople(token);
     }
 
     @Override

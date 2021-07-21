@@ -1,6 +1,7 @@
 package ru.leverx.leverxpetsspringbootproxy.controller;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ru.leverx.leverxpetsspringbootproxy.dto.PersonRequestDto;
@@ -22,18 +24,20 @@ import java.util.List;
 @RestController
 @RequestMapping("/people")
 @AllArgsConstructor
+@Slf4j
 public class PersonController {
 
     private final PersonService personService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonResponseDto> getPersonById(@PathVariable Long id) throws IOException {
-        return ResponseEntity.ok(personService.getPersonById(id));
+    public ResponseEntity<PersonResponseDto> getPersonById(@RequestHeader (name = "Authorization", defaultValue = "") String token, @PathVariable Long id) throws IOException {
+        log.error("token is here: " + token);
+        return ResponseEntity.ok(personService.getPersonById(id, token));
     }
 
     @GetMapping
-    public List<PersonResponseDto> getPeople() throws IOException {
-        return personService.getPeople();
+    public List<PersonResponseDto> getPeople(@RequestHeader (name = "Authorization", defaultValue = "") String token) throws IOException {
+        return personService.getPeople(token);
     }
 
     @PostMapping
