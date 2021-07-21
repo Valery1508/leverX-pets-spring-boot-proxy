@@ -1,0 +1,13 @@
+applications:
+  - name: pets-service-proxy
+    instances: 1
+    memory: 1G
+    disk_quota: 1G
+    path: target/leverx-pets-spring-boot-proxy-0.0.1-SNAPSHOT.jar
+    buildpack: https://github.com/cloudfoundry/java-buildpack.git#v4.17.1
+    services:
+      - pets-xsuaa
+      - my-logger
+    env:
+      JBP_CONFIG_DEBUG: '{enabled: true}'
+      destinations: '[{ "name":"destination-service-subacc", "url":"https://pets-service.cfapps.eu10.hana.ondemand.com/,"forwardAuthToken":true"}]'
