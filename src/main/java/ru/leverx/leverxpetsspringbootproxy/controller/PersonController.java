@@ -2,6 +2,7 @@ package ru.leverx.leverxpetsspringbootproxy.controller;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,7 +31,7 @@ public class PersonController {
     private final PersonService personService;
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<PersonResponseDto> getPersonById(@RequestHeader (name = "Authorization", defaultValue = "") String token, @PathVariable Long id) throws IOException {
+    public ResponseEntity<PersonResponseDto> getPersonById(@RequestHeader (HttpHeaders.AUTHORIZATION) String token, @PathVariable Long id) throws IOException {
         log.error("token is here: " + token);
         return ResponseEntity.ok(personService.getPersonById(id, token));
     }

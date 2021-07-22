@@ -26,6 +26,7 @@ import ru.leverx.leverxpetsspringbootproxy.service.AuthorizationHeaderService;
 import java.io.IOException;
 import java.util.List;
 
+import static org.apache.tomcat.websocket.Constants.AUTHORIZATION_HEADER_NAME;
 import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationConstants.GENERAL_URL;
 import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationConstants.HTTP_CLIENT;
 import static ru.leverx.leverxpetsspringbootproxy.client.constants.DestinationConstants.OBJECT_MAPPER;
@@ -42,9 +43,8 @@ public class HttpDestinationClientPeopleImpl implements HttpDestinationClientPeo
 
         HttpUriRequest uriRequest = new HttpGet(String.format("%s/people/%s", GENERAL_URL, id));
 
-        authorizationHeaderService.addAuthorizationHeader(uriRequest, token);
-        //uriRequest.setHeader(HttpHeaders.CONTENT_TYPE, "application/json");
-        //uriRequest.addHeader(token, "Authorization");
+        //authorizationHeaderService.addAuthorizationHeader(uriRequest, token);
+        uriRequest.addHeader(AUTHORIZATION_HEADER_NAME, token);
 
         HttpResponse executedUrl = HTTP_CLIENT.execute(uriRequest);
         HttpEntity entity = executedUrl.getEntity();
@@ -56,13 +56,6 @@ public class HttpDestinationClientPeopleImpl implements HttpDestinationClientPeo
     @Override
     public List<PersonResponseDto> httpGetPeople(String token) throws IOException {
         HttpUriRequest uriRequest = new HttpGet(String.format("%s/people", GENERAL_URL));
-
-        PrincipalFacade principalFacade = PrincipalAccessor.getPrincipalFacade();
-
-        ((ScpCfPrincipalFacade) principalFacade).setIdExtractorFunction(
-                "urn:ietf:params:oauth:grant-type:jwt-bearer",
-                jwt -> jwt.getClaim("user_name").asString());
-        log.info("LOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOK -  " + principalFacade.toString());
 
         authorizationHeaderService.addAuthorizationHeader(uriRequest, token);
         HttpResponse executedUrl = HTTP_CLIENT.execute(uriRequest);

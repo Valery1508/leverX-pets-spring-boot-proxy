@@ -91,7 +91,7 @@
             <groupId>com.sap.cloud.sdk.cloudplatform</groupId>
             <artifactId>scp-cf</artifactId>
             <version>3.39.0</version>
-            <!--<exclusions>
+            <exclusions>
                 <exclusion>
                     <groupId>com.sap.cloud.security</groupId>
                     <artifactId>java-api</artifactId>
@@ -100,7 +100,7 @@
                     <groupId>com.sap.cloud.security.xsuaa</groupId>
                     <artifactId>token-client</artifactId>
                 </exclusion>
-            </exclusions>-->
+            </exclusions>
         </dependency>
         <!--<dependency>
             <groupId>com.sap.cloud.security.xsuaa</groupId>
@@ -114,22 +114,22 @@
             <version>${sap.cloud.security.version}</version>
         </dependency>-->
         <!-- security -->
-        <!--<dependency>
+        <dependency>
             <groupId>com.sap.cloud.security.xsuaa</groupId>
             <artifactId>xsuaa-spring-boot-starter</artifactId>
             <version>${sap.cloud.security.version}</version>
-        </dependency>-->
+        </dependency>
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
             <version>${apache.httpclient.version}</version>
         </dependency>
 
-        <dependency>
+        <!--<dependency>
             <groupId>com.nimbusds</groupId>
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>8.20</version>
-        </dependency>
+        </dependency>-->
 
     </dependencies>
 

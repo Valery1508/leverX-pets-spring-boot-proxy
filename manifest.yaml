@@ -10,4 +10,4 @@ applications:
       - my-logger
     env:
       JBP_CONFIG_DEBUG: '{enabled: true}'
-      destinations: '[{ "name":"destination-service-subacc", "url":"https://pets-service.cfapps.eu10.hana.ondemand.com/,"forwardAuthToken":true"}]'
+      destinations: '[{ "name":"destination-service-transfer", "url":"https://pets-service.cfapps.eu10.hana.ondemand.com","forwardAuthToken":true"}]'
