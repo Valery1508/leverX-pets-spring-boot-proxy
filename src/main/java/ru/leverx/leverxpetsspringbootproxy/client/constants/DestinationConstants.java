@@ -9,7 +9,7 @@ import static com.sap.cloud.sdk.cloudplatform.connectivity.HttpClientAccessor.ge
 
 public class DestinationConstants {
 
-    public static final String DESTINATION_SERVICE_NAME = "destination-service-subacc";
+    public static final String DESTINATION_SERVICE_NAME = "destination-service-transfer";
 
     public static final HttpDestination DESTINATION = getDestination(DESTINATION_SERVICE_NAME).asHttp();
 
@@ -17,6 +17,6 @@ public class DestinationConstants {
 
     public static final String GENERAL_URL = DESTINATION.getUri().toString();
 
-    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+    public static final ObjectMapper OBJECT_MAPPER = new ObjectMapper(); // TODO: 7/21/2021 remove it from here
 
 }
